@@ -28,6 +28,11 @@ Internal workspace dependencies were updated accordingly.
 - `piConfig.configDir`: `.pi` -> `.piii`
 - `bin`: `pi` -> `piii`
 
+## npm publishing policy (fork)
+
+- Publish (monorepo): `npm publish -ws --tag piii --access public`
+- Install: `npm i -g @yolziii/piii-coding-agent@piii`
+
 ## Source imports
 
 All TypeScript imports of the form `@mariozechner/pi-*` were updated to the forked package IDs `@yolziii/piii-*` across the repository (excluding `dist/` and `node_modules/`).
