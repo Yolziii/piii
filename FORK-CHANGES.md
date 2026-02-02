@@ -34,6 +34,38 @@ Internal workspace dependencies were updated accordingly.
 - Publish (monorepo): `npm publish -ws --tag piii --access public`
 - Install: `npm i -g @yolziii/piii-coding-agent@piii`
 
+### Monorepo publish scripts
+
+To enforce the fork publishing policy, the root `package.json` scripts were adjusted:
+
+- `npm run publish` uses: `npm publish -ws --tag piii --access public`
+- `npm run publish:dry` uses: `npm publish -ws --tag piii --access public --dry-run`
+
+### Release checklist (fork)
+
+Manual flow for publishing a new fork build for an existing upstream base version:
+
+1. Ensure working tree is clean and you’re on the branch you publish from (typically `main`).
+2. (Recommended) Run checks on the current commit (before changing versions):
+   - `npm run check`
+3. Decide the next fork version number (`<upstream>-piii.<n>`):
+   - `npm view @yolziii/piii-coding-agent versions`
+4. Set the lockstep version for published packages (avoid bumping example workspaces):
+   - `npm version <upstream>-piii.<n> --no-git-tag-version -w packages/ai -w packages/agent -w packages/tui -w packages/coding-agent -w packages/mom -w packages/web-ui -w packages/pods`
+5. Sync internal workspace dependency ranges (lockstep):
+   - `node scripts/sync-versions.js`
+6. Reinstall to update lockfile:
+   - `npm install`
+7. Run checks again (recommended, since the install/lockfile changed):
+   - `npm run check`
+8. Commit/tag/push and publish:
+   - `git add package.json package-lock.json packages`
+   - `git commit -m "Release v<upstream>-piii.<n>"`
+   - `git tag v<upstream>-piii.<n>`
+   - `git push origin main`
+   - `git push origin v<upstream>-piii.<n>`
+   - `npm run publish`
+
 ## Source imports
 
 All TypeScript imports of the form `@mariozechner/pi-*` were updated to the forked package IDs `@yolziii/piii-*` across the repository (excluding `dist/` and `node_modules/`).
