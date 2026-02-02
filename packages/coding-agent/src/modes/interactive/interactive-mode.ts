@@ -581,20 +581,92 @@ export class InteractiveMode {
 	}
 
 	/**
+	 * Parse a semver version string into base version and prerelease.
+	 */
+	private parseVersion(version: string): { base: [number, number, number]; prerelease?: string } {
+		const match = version.match(/^(\d+)\.(\d+)\.(\d+)(?:-(.+))?$/);
+		if (!match) {
+			throw new Error(`Invalid version format: ${version}`);
+		}
+		return {
+			base: [parseInt(match[1], 10), parseInt(match[2], 10), parseInt(match[3], 10)],
+			prerelease: match[4],
+		};
+	}
+
+	/**
+	 * Compare two semver versions. Returns:
+	 * - positive if a > b
+	 * - negative if a < b
+	 * - 0 if equal
+	 */
+	private compareVersions(a: string, b: string): number {
+		const parsedA = this.parseVersion(a);
+		const parsedB = this.parseVersion(b);
+
+		// Compare base versions (major.minor.patch)
+		for (let i = 0; i < 3; i++) {
+			if (parsedA.base[i] !== parsedB.base[i]) {
+				return parsedA.base[i] - parsedB.base[i];
+			}
+		}
+
+		// Base versions are equal, compare prerelease
+		// For fork workflow: prerelease (fork) > stable (upstream) at same base version
+		// Example: 1.0.0-piii.1 was created AFTER 1.0.0 upstream, so it's newer
+		if (!parsedA.prerelease && parsedB.prerelease) return -1;
+		if (parsedA.prerelease && !parsedB.prerelease) return 1;
+		if (!parsedA.prerelease && !parsedB.prerelease) return 0;
+
+		// Both have prerelease - compare them
+		// For piii.N format, extract N and compare numerically
+		const aPiii = parsedA.prerelease!.match(/^piii\.(\d+)$/);
+		const bPiii = parsedB.prerelease!.match(/^piii\.(\d+)$/);
+
+		if (aPiii && bPiii) {
+			return parseInt(aPiii[1], 10) - parseInt(bPiii[1], 10);
+		}
+
+		// Fallback to lexicographic comparison for other prerelease formats
+		return parsedA.prerelease!.localeCompare(parsedB.prerelease!);
+	}
+
+	/**
 	 * Check npm registry for a newer version.
+	 * Checks both 'latest' (upstream) and 'piii' (fork) dist-tags.
 	 */
 	private async checkForNewVersion(): Promise<string | undefined> {
 		if (process.env.PI_SKIP_VERSION_CHECK) return undefined;
 
 		try {
-			const response = await fetch("https://registry.npmjs.org/@yolziii/piii-coding-agent/latest");
-			if (!response.ok) return undefined;
+			// Fetch both dist-tags in parallel
+			const [latestRes, piiiRes] = await Promise.all([
+				fetch("https://registry.npmjs.org/@yolziii/piii-coding-agent/latest").catch(() => null),
+				fetch("https://registry.npmjs.org/@yolziii/piii-coding-agent/piii").catch(() => null),
+			]);
 
-			const data = (await response.json()) as { version?: string };
-			const latestVersion = data.version;
+			const versions: string[] = [];
 
-			if (latestVersion && latestVersion !== this.version) {
-				return latestVersion;
+			// Collect versions from both tags
+			if (latestRes?.ok) {
+				const data = (await latestRes.json()) as { version?: string };
+				if (data.version) versions.push(data.version);
+			}
+
+			if (piiiRes?.ok) {
+				const data = (await piiiRes.json()) as { version?: string };
+				if (data.version) versions.push(data.version);
+			}
+
+			if (versions.length === 0) return undefined;
+
+			// Find the newest version among all candidates
+			versions.sort((a, b) => this.compareVersions(b, a)); // descending order
+			const newestVersion = versions[0];
+
+			// Check if it's newer than current version
+			if (newestVersion && this.compareVersions(newestVersion, this.version) > 0) {
+				return newestVersion;
 			}
 
 			return undefined;

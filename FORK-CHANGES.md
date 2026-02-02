@@ -59,7 +59,7 @@ Manual flow for publishing a new fork build for an existing upstream base versio
 7. Run checks again (recommended, since the install/lockfile changed):
    - `npm run check`
 8. Commit/tag/push and publish:
-   - `git add package.json package-lock.json packages`
+   - `git add .`
    - `git commit -m "Release v<upstream>-piii.<n>"`
    - `git tag v<upstream>-piii.<n>`
    - `git push origin main`
