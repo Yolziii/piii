@@ -15,16 +15,20 @@ import { readFileSync } from "node:fs";
 
 const REGISTRY_PACKAGE = "@yolziii/piii-coding-agent";
 
-// Must match the manual checklist (avoid bumping example workspaces).
+// Must match the manual checklist intent: bump only the published packages, not example workspaces.
+// Using package names (not paths) avoids npm matching nested workspaces like packages/web-ui/example.
 const PUBLISHED_WORKSPACES = [
-	"packages/ai",
-	"packages/agent",
-	"packages/tui",
-	"packages/coding-agent",
-	"packages/mom",
-	"packages/web-ui",
-	"packages/pods",
+	"@yolziii/piii-ai",
+	"@yolziii/piii-agent-core",
+	"@yolziii/piii-tui",
+	"@yolziii/piii-coding-agent",
+	"@yolziii/piii-mom",
+	"@yolziii/piii-web-ui",
+	"@yolziii/piii-pods",
 ];
+
+const args = process.argv.slice(2);
+const DRY_RUN = args.includes("--dry-run");
 
 function run(cmd, { silent = false } = {}) {
 	console.log(`$ ${cmd}`);
@@ -103,7 +107,10 @@ console.log(`Next fork version:  ${nextVersion}\n`);
 
 // Step 4: Set lockstep version for published packages (avoid examples)
 const workspaceArgs = PUBLISHED_WORKSPACES.map((w) => `-w ${w}`).join(" ");
-run(`npm version ${nextVersion} --no-git-tag-version ${workspaceArgs}`);
+// npm 10+ tries to "update workspaces" during `npm version` which can crash mid-flight
+// when internal workspace dependency ranges are still on the previous prerelease.
+// We explicitly disable that and do the sync/install steps afterwards (as in the checklist).
+run(`npm version ${nextVersion} --no-git-tag-version --no-workspaces-update ${workspaceArgs}`);
 
 // Step 5: Sync internal workspace dependency ranges
 run("node scripts/sync-versions.js");
@@ -115,9 +122,15 @@ run("npm install");
 run("npm run check");
 
 // Step 8: Commit/tag/push and publish
-run("git add .");
-run(`git commit -m "Release v${nextVersion}"`);
-run(`git tag v${nextVersion}`);
-run("git push origin main");
-run(`git push origin v${nextVersion}`);
-run("npm run publish");
+if (DRY_RUN) {
+	console.log("\nDRY RUN: skipping commit/tag/push and using publish:dry\n");
+	run("git add .");
+	run("npm run publish:dry");
+} else {
+	run("git add .");
+	run(`git commit -m "Release v${nextVersion}"`);
+	run(`git tag v${nextVersion}`);
+	run("git push origin main");
+	run(`git push origin v${nextVersion}`);
+	run("npm run publish");
+}
