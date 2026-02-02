@@ -1,6 +1,6 @@
 {
 	"name": "@yolziii/piii-web-ui",
-	"version": "0.51.0-piii.1",
+	"version": "0.51.0-piii.2",
 	"description": "Reusable web UI components for AI chat interfaces powered by @yolziii/piii-ai",
 	"type": "module",
 	"main": "dist/index.js",
@@ -18,8 +18,8 @@
 	},
 	"dependencies": {
 		"@lmstudio/sdk": "^1.5.0",
-		"@yolziii/piii-ai": "^0.51.0-piii.1",
-		"@yolziii/piii-tui": "^0.51.0-piii.1",
+		"@yolziii/piii-ai": "^0.51.0-piii.2",
+		"@yolziii/piii-tui": "^0.51.0-piii.2",
 		"docx-preview": "^0.3.7",
 		"jszip": "^3.10.1",
 		"lucide": "^0.544.0",
