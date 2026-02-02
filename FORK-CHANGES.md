@@ -30,6 +30,7 @@ Internal workspace dependencies were updated accordingly.
 
 ## npm publishing policy (fork)
 
+- Versioning: base version matches upstream (`MAJOR.MINOR.PATCH`). If there are multiple fork builds for the same upstream version, publish them as pre-releases: `<upstream>-piii.<n>` (example: `0.51.0-piii.1`, `0.51.0-piii.2`).
 - Publish (monorepo): `npm publish -ws --tag piii --access public`
 - Install: `npm i -g @yolziii/piii-coding-agent@piii`
 
