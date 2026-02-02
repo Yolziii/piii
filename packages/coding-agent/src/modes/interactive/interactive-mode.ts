@@ -7,7 +7,7 @@ import * as crypto from "node:crypto";
 import * as fs from "node:fs";
 import * as os from "node:os";
 import * as path from "node:path";
-import type { AgentMessage } from "@mariozechner/pi-agent-core";
+import type { AgentMessage } from "@yolziii/piii-agent-core";
 import {
 	type AssistantMessage,
 	getOAuthProviders,
@@ -15,7 +15,7 @@ import {
 	type Message,
 	type Model,
 	type OAuthProvider,
-} from "@mariozechner/pi-ai";
+} from "@yolziii/piii-ai";
 import type {
 	AutocompleteItem,
 	EditorAction,
@@ -26,7 +26,7 @@ import type {
 	OverlayHandle,
 	OverlayOptions,
 	SlashCommand,
-} from "@mariozechner/pi-tui";
+} from "@yolziii/piii-tui";
 import {
 	CombinedAutocompleteProvider,
 	type Component,
@@ -41,7 +41,7 @@ import {
 	TruncatedText,
 	TUI,
 	visibleWidth,
-} from "@mariozechner/pi-tui";
+} from "@yolziii/piii-tui";
 import { spawn, spawnSync } from "child_process";
 import {
 	APP_NAME,
@@ -511,9 +511,9 @@ export class InteractiveMode {
 		const cwdBasename = path.basename(process.cwd());
 		const sessionName = this.sessionManager.getSessionName();
 		if (sessionName) {
-			this.ui.terminal.setTitle(`π - ${sessionName} - ${cwdBasename}`);
+			this.ui.terminal.setTitle(`π/2 - ${sessionName} - ${cwdBasename}`);
 		} else {
-			this.ui.terminal.setTitle(`π - ${cwdBasename}`);
+			this.ui.terminal.setTitle(`π/2 - ${cwdBasename}`);
 		}
 	}
 
@@ -587,7 +587,7 @@ export class InteractiveMode {
 		if (process.env.PI_SKIP_VERSION_CHECK) return undefined;
 
 		try {
-			const response = await fetch("https://registry.npmjs.org/@mariozechner/pi-coding-agent/latest");
+			const response = await fetch("https://registry.npmjs.org/@yolziii/piii-coding-agent/latest");
 			if (!response.ok) return undefined;
 
 			const data = (await response.json()) as { version?: string };
@@ -2751,7 +2751,7 @@ export class InteractiveMode {
 	showNewVersionNotification(newVersion: string): void {
 		const action = isBunBinary
 			? `Download from: ${theme.fg("accent", "https://github.com/badlogic/pi-mono/releases/latest")}`
-			: `Run: ${theme.fg("accent", `${isBunRuntime ? "bun" : "npm"} install -g @mariozechner/pi-coding-agent`)}`;
+			: `Run: ${theme.fg("accent", `${isBunRuntime ? "bun" : "npm"} install -g @yolziii/piii-coding-agent`)}`;
 		const updateInstruction = theme.fg("muted", `New version ${newVersion} is available. `) + action;
 		const changelogUrl = theme.fg(
 			"accent",

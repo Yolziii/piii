@@ -1,5 +1,5 @@
-import type { AgentTool } from "@mariozechner/pi-agent-core";
 import { type Static, Type } from "@sinclair/typebox";
+import type { AgentTool } from "@yolziii/piii-agent-core";
 import { existsSync, readdirSync, statSync } from "fs";
 import nodePath from "path";
 import { resolveToCwd } from "./path-utils.js";

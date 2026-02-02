@@ -1,3 +1,4 @@
+import type { Static, TSchema } from "@sinclair/typebox";
 import type {
 	AssistantMessageEvent,
 	ImageContent,
@@ -8,8 +9,7 @@ import type {
 	TextContent,
 	Tool,
 	ToolResultMessage,
-} from "@mariozechner/pi-ai";
-import type { Static, TSchema } from "@sinclair/typebox";
+} from "@yolziii/piii-ai";
 
 /** Stream function - can return sync or Promise for async config lookup */
 export type StreamFn = (

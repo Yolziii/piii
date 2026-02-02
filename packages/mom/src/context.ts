@@ -10,8 +10,8 @@
  * - MomSettingsManager: Simple settings for mom (compaction, retry, model preferences)
  */
 
-import type { UserMessage } from "@mariozechner/pi-ai";
-import type { SessionManager, SessionMessageEntry } from "@mariozechner/pi-coding-agent";
+import type { UserMessage } from "@yolziii/piii-ai";
+import type { SessionManager, SessionMessageEntry } from "@yolziii/piii-coding-agent";
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "fs";
 import { dirname, join } from "path";
 

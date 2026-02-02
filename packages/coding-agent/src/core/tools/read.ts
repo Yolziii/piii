@@ -1,6 +1,6 @@
-import type { AgentTool } from "@mariozechner/pi-agent-core";
-import type { ImageContent, TextContent } from "@mariozechner/pi-ai";
 import { type Static, Type } from "@sinclair/typebox";
+import type { AgentTool } from "@yolziii/piii-agent-core";
+import type { ImageContent, TextContent } from "@yolziii/piii-ai";
 import { constants } from "fs";
 import { access as fsAccess, readFile as fsReadFile } from "fs/promises";
 import { formatDimensionNote, resizeImage } from "../../utils/image-resize.js";

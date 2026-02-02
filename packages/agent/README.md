@@ -1,5 +1,9 @@
 # @mariozechner/pi-agent-core
 
+> Fork notice: This package is part of the **piii** monorepo fork maintained by @yolziii.
+> Upstream project: https://github.com/badlogic/pi-mono (Pi).
+
+
 Stateful agent with tool execution and event streaming. Built on `@mariozechner/pi-ai`.
 
 ## Installation

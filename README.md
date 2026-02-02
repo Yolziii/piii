@@ -8,9 +8,13 @@
   <a href="https://github.com/badlogic/pi-mono/actions/workflows/ci.yml"><img alt="Build status" src="https://img.shields.io/github/actions/workflow/status/badlogic/pi-mono/ci.yml?style=flat-square&branch=main" /></a>
 </p>
 
-# Pi Monorepo
+# Piii
 
-> **Looking for the pi coding agent?** See **[packages/coding-agent](packages/coding-agent)** for installation and usage.
+> This project is a fork of https://github.com/badlogic/pi-mono (Pi).
+> The goal of this fork is to experiment with the architecture and learn Pi.
+> I will try to keep it reasonably up to date with upstream when possible.
+
+> **Looking for the piii coding agent?** See **[packages/coding-agent](packages/coding-agent)** for installation and usage.
 
 Tools for building AI agents and managing LLM deployments.
 
@@ -18,13 +22,13 @@ Tools for building AI agents and managing LLM deployments.
 
 | Package | Description |
 |---------|-------------|
-| **[@mariozechner/pi-ai](packages/ai)** | Unified multi-provider LLM API (OpenAI, Anthropic, Google, etc.) |
-| **[@mariozechner/pi-agent-core](packages/agent)** | Agent runtime with tool calling and state management |
-| **[@mariozechner/pi-coding-agent](packages/coding-agent)** | Interactive coding agent CLI |
-| **[@mariozechner/pi-mom](packages/mom)** | Slack bot that delegates messages to the pi coding agent |
-| **[@mariozechner/pi-tui](packages/tui)** | Terminal UI library with differential rendering |
-| **[@mariozechner/pi-web-ui](packages/web-ui)** | Web components for AI chat interfaces |
-| **[@mariozechner/pi-pods](packages/pods)** | CLI for managing vLLM deployments on GPU pods |
+| **[@yolziii/piii-ai](packages/ai)** | Unified multi-provider LLM API (OpenAI, Anthropic, Google, etc.) |
+| **[@yolziii/piii-agent-core](packages/agent)** | Agent runtime with tool calling and state management |
+| **[@yolziii/piii-coding-agent](packages/coding-agent)** | Interactive coding agent CLI |
+| **[@yolziii/piii-mom](packages/mom)** | Slack bot that delegates messages to the piii coding agent |
+| **[@yolziii/piii-tui](packages/tui)** | Terminal UI library with differential rendering |
+| **[@yolziii/piii-web-ui](packages/web-ui)** | Web components for AI chat interfaces |
+| **[@yolziii/piii-pods](packages/pods)** | CLI for managing vLLM deployments on GPU pods |
 
 ## Contributing
 

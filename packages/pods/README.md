@@ -1,5 +1,9 @@
 # pi
 
+> Fork notice: This package is part of the **piii** monorepo fork maintained by @yolziii.
+> Upstream project: https://github.com/badlogic/pi-mono (Pi).
+
+
 Deploy and manage LLMs on GPU pods with automatic vLLM configuration for agentic workloads.
 
 ## Installation

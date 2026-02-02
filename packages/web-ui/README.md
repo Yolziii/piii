@@ -1,5 +1,9 @@
 # @mariozechner/pi-web-ui
 
+> Fork notice: This package is part of the **piii** monorepo fork maintained by @yolziii.
+> Upstream project: https://github.com/badlogic/pi-mono (Pi).
+
+
 Reusable web UI components for building AI chat interfaces powered by [@mariozechner/pi-ai](../ai) and [@mariozechner/pi-agent-core](../agent).
 
 Built with [mini-lit](https://github.com/badlogic/mini-lit) web components and Tailwind CSS v4.

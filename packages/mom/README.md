@@ -1,5 +1,9 @@
 # mom (Master Of Mischief)
 
+> Fork notice: This package is part of the **piii** monorepo fork maintained by @yolziii.
+> Upstream project: https://github.com/badlogic/pi-mono (Pi).
+
+
 A Slack bot powered by an LLM that can execute bash commands, read/write files, and interact with your development environment. Mom is **self-managing**. She installs her own tools, programs [CLI tools (aka "skills")](https://mariozechner.at/posts/2025-11-02-what-if-you-dont-need-mcp/) she can use to help with your workflows and tasks, configures credentials, and maintains her workspace autonomously.
 
 ## Features

@@ -1,5 +1,9 @@
 # @mariozechner/pi-tui
 
+> Fork notice: This package is part of the **piii** monorepo fork maintained by @yolziii.
+> Upstream project: https://github.com/badlogic/pi-mono (Pi).
+
+
 Minimal terminal UI framework with differential rendering and synchronized output for flicker-free interactive CLI applications.
 
 ## Features

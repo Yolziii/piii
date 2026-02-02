@@ -1,5 +1,9 @@
 # @mariozechner/pi-ai
 
+> Fork notice: This package is part of the **piii** monorepo fork maintained by @yolziii.
+> Upstream project: https://github.com/badlogic/pi-mono (Pi).
+
+
 Unified LLM API with automatic model discovery, provider configuration, token and cost tracking, and simple context persistence and hand-off to other models mid-session.
 
 **Note**: This library only includes models that support tool calling (function calling), as this is essential for agentic workflows.
